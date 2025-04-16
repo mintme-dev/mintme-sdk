@@ -1,6 +1,6 @@
 {
   "name": "mintme-sdk",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A simple and powerful SDK for creating and managing tokens on the Solana blockchain. MintMe SDK simplifies the process of minting SPL tokens with metadata, managing token authorities, and interacting with the Solana token ecosystem.",
   "types": "index.d.ts",
   "keywords": [
