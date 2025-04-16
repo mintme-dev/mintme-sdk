@@ -5,7 +5,7 @@
  * Simply run with: node createTokenNode.js
  */
 
-const { createTokenSimple } = require("mintme");
+const { createTokenSimple } = require("mintme-sdk");
 
 async function main() {
   try {

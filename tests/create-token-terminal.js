@@ -10,7 +10,7 @@
  */
 
 const { Connection, Keypair } = require("@solana/web3.js");
-const { createToken, revokeFreezeAuthority } = require("mintme");
+const { createToken, revokeFreezeAuthority } = require("mintme-sdk");
 const fs = require("fs");
 const path = require("path");
 const readline = require("readline");
