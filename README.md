@@ -4,13 +4,6 @@ The MintMe SDK is a JavaScript library designed to simplify token creation on th
 
 ---
 
-## Run code in Codesandbox.io 💡
-You can run this code directly in Codesandbox.io in your own machine witouth cost.
-- **Codesandbox.io Template Mintme Node Example**: [[codesandbox.io/p/devbox/template...](https://codesandbox.io/p/devbox/template-mintme-easy-node-example-hgpt49)](https://codesandbox.io/p/devbox/template-mintme-easy-node-example-hgpt49)
-
-
----
-
 ## Features 🌟
 
 1. **Token Creation Made Easy**: Create SPL tokens with customizable parameters like name, symbol, decimals, and supply.
@@ -79,6 +72,10 @@ const { createTokenSimple } = require("mintme-sdk");
   }
 })();
 ```
+
+### Run this example code in Codesandbox.io 💡
+You can run this code directly in Codesandbox.io in your own machine witouth cost.
+- **Codesandbox.io Template Mintme Node Example**: [[codesandbox.io/p/devbox/template...](https://codesandbox.io/p/devbox/template-mintme-easy-node-example-hgpt49)](https://codesandbox.io/p/devbox/template-mintme-easy-node-example-hgpt49)
 
 ---
 
