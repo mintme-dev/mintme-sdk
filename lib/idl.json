@@ -66,6 +66,10 @@
                     "type": "string"
                 },
                 {
+                    "name": "uniqueKey",
+                    "type": "string"
+                },
+                {
                     "name": "decimals",
                     "type": "u8"
                 },
@@ -115,29 +119,12 @@
                 {
                     "name": "symbol",
                     "type": "string"
-                }
+                },
+                {
+                    "name": "uniqueKey",
+                    "type": "string"
+                },
             ]
-        },
-        {
-            "name": "withdrawFunds",
-            "accounts": [
-                {
-                    "name": "paymentPda",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "receiver",
-                    "isMut": true,
-                    "isSigner": false
-                },
-                {
-                    "name": "systemProgram",
-                    "isMut": false,
-                    "isSigner": false
-                }
-            ],
-            "args": []
         }
     ],
     "errors": [
