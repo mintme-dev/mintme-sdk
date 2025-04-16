@@ -1,0 +1,165 @@
+{
+    "version": "0.1.0",
+    "name": "token_creator",
+    "instructions": [
+        {
+            "name": "createToken",
+            "accounts": [
+                {
+                    "name": "payer",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "mint",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenAccount",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "metadata",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenPda",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "metadataProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "rent",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "associatedTokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "symbol",
+                    "type": "string"
+                },
+                {
+                    "name": "decimals",
+                    "type": "u8"
+                },
+                {
+                    "name": "initialSupply",
+                    "type": "u64"
+                },
+                {
+                    "name": "uri",
+                    "type": "string"
+                },
+                {
+                    "name": "revokeMint",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "revokeFreezeAuthority",
+            "accounts": [
+                {
+                    "name": "payer",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "mint",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "symbol",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "withdrawFunds",
+            "accounts": [
+                {
+                    "name": "paymentPda",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "receiver",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "NoFreezeAuthority",
+            "msg": "La mint no tiene autoridad de congelamiento"
+        },
+        {
+            "code": 6001,
+            "name": "InvalidPDA",
+            "msg": "Invalid PDA"
+        },
+        {
+            "code": 6002,
+            "name": "InvalidReceiver",
+            "msg": "Invalid receiver address"
+        },
+        {
+            "code": 6003,
+            "name": "InsufficientFunds",
+            "msg": "Insufficient funds in payment account"
+        }
+    ]
+}
