@@ -38,7 +38,7 @@ node tests/create-token-simple.js
 **Example Code:**
 
 ```javascript
-const { createTokenSimple } = require("mintme");
+const { createTokenSimple } = require("mintme-sdk");
 
 (async () => {
   try {
