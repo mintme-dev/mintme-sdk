@@ -3,7 +3,7 @@
  * A simple library for creating tokens on Solana
  */
 
-import { PublicKey, Connection, Transaction, Signer } from '@solana/web3.js';
+import { PublicKey, Connection, Transaction, VersionedTransaction } from '@solana/web3.js';
 
 /**
  * Configuration options for token creation
@@ -71,13 +71,15 @@ export interface TokenCreationConfig {
     
     /**
      * Function to sign a transaction
+     * Updated to support both Transaction and VersionedTransaction
      */
-    signTransaction: (transaction: Transaction) => Promise<Transaction>;
+    signTransaction?: <T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>;
     
     /**
      * Function to sign multiple transactions
+     * Updated to support both Transaction and VersionedTransaction
      */
-    signAllTransactions: (transactions: Transaction[]) => Promise<Transaction[]>;
+    signAllTransactions?: <T extends Transaction | VersionedTransaction>(transactions: T[]) => Promise<T[]>;
   } | string; // Can also be a path to a wallet file
 }
 
