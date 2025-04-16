@@ -56,8 +56,9 @@ export interface TokenCreationConfig {
   
   /**
    * Solana cluster to use (e.g., 'devnet', 'mainnet-beta')
+   * Made more flexible to accept any string value for future compatibility
    */
-  cluster: 'devnet' | 'testnet' | 'mainnet-beta';
+  cluster: 'devnet' | 'testnet' | 'mainnet-beta' | string;
   
   /**
    * Wallet configuration for signing transactions
@@ -91,8 +92,14 @@ export interface TokenCreationResult {
   
   /**
    * The address of the created token
+   * @deprecated Use mint instead
    */
   tokenAddress?: string;
+  
+  /**
+   * The address of the created token (mint address)
+   */
+  mint?: string;
   
   /**
    * The transaction signature
@@ -103,6 +110,11 @@ export interface TokenCreationResult {
    * Error message if the operation failed
    */
   error?: string;
+  
+  /**
+   * Additional error details if available
+   */
+  details?: any;
 }
 
 /**
