@@ -88,6 +88,14 @@
                 {
                     "name": "revokeFreeze",
                     "type": "bool"
+                },
+                {
+                    "name": "partnerWallet",
+                    "type": "publicKey"
+                },
+                {
+                    "name": "partnerAmount",
+                    "type": "u64"
                 }
             ]
         },
