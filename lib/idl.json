@@ -46,6 +46,11 @@
                     "isSigner": false
                 },
                 {
+                    "name": "partnerWallet",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
                     "name": "rent",
                     "isMut": false,
                     "isSigner": false
@@ -135,7 +140,7 @@
                 {
                     "name": "uniqueKey",
                     "type": "string"
-                },
+                }
             ]
         }
     ],
