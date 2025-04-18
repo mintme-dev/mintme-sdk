@@ -37,6 +37,9 @@ node tests/create-token-simple.js
 
 **Example Code:**
 
+partnerWallet = Your wallet.
+partnerAmount = Your commission for the transaction.
+
 ```javascript
 const { createTokenSimple } = require("mintme-sdk");
 
@@ -51,6 +54,8 @@ const { createTokenSimple } = require("mintme-sdk");
       uri: "https://ipfs.mintme.dev/metadata.json",
       revokeMint: true,
       revokeFreeze: true,
+      partnerWallet: new PublicKey("_YOUR_WALLET_HERE_"),
+      partnerAmount: 0.1,
       walletPath: "./wallet.json",
       connection: "https://api.devnet.solana.com",
       cluster: "devnet",
