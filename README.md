@@ -54,7 +54,7 @@ const { createTokenSimple } = require("mintme-sdk");
       uri: "https://ipfs.mintme.dev/metadata.json",
       revokeMint: true,
       revokeFreeze: true,
-      partnerWallet: new PublicKey("_YOUR_WALLET_HERE_"),
+      partnerWallet: "_YOUR_WALLET_HERE_",
       partnerAmount: 0.1,
       walletPath: "./wallet.json",
       connection: "https://api.devnet.solana.com",
@@ -79,7 +79,9 @@ const { createTokenSimple } = require("mintme-sdk");
 ```
 
 ### Run this example code in Codesandbox.io 💡
+
 You can run this code directly in Codesandbox.io in your own machine witouth cost.
+
 - **Codesandbox.io Template Mintme Node Example**: [[codesandbox.io/p/devbox/template...](https://codesandbox.io/p/devbox/template-mintme-easy-node-example-hgpt49)](https://codesandbox.io/p/devbox/template-mintme-easy-node-example-hgpt49)
 
 ---
