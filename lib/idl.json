@@ -11,6 +11,11 @@
                     "isSigner": true
                 },
                 {
+                    "name": "config",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
                     "name": "mint",
                     "isMut": true,
                     "isSigner": false
