@@ -110,15 +110,25 @@
             ]
         },
         {
-            "name": "revokeFreezeAuthority",
+            "name": "revokeAuthority",
             "accounts": [
                 {
-                    "name": "payer",
+                    "name": "owner",
                     "isMut": true,
                     "isSigner": true
                 },
                 {
                     "name": "mint",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "config",
+                    "isMut": false,
+                    "isSigner": false
+                },
+                {
+                    "name": "tokenPda",
                     "isMut": true,
                     "isSigner": false
                 },
@@ -135,40 +145,99 @@
             ],
             "args": [
                 {
-                    "name": "name",
-                    "type": "string"
+                    "name": "revokeMint",
+                    "type": "bool"
                 },
                 {
-                    "name": "symbol",
-                    "type": "string"
-                },
-                {
-                    "name": "uniqueKey",
-                    "type": "string"
+                    "name": "revokeFreeze",
+                    "type": "bool"
                 }
             ]
+        },
+        {
+            "name": "loadStats",
+            "accounts": [
+                {
+                    "name": "tokenPda",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "admin",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": []
+        }
+    ],
+    "accounts": [
+        {
+            "name": "networkFeeConfig",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "feeLamports",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "revokeFeelamports",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "bump",
+                        "type": "u8"
+                    }
+                ]
+            }
         }
     ],
     "errors": [
         {
             "code": 6000,
             "name": "NoFreezeAuthority",
-            "msg": "La mint no tiene autoridad de congelamiento"
+            "msg": "The mint has no freeze authority"
         },
         {
             "code": 6001,
+            "name": "NoMintAuthority",
+            "msg": "The mint has no mint authority"
+        },
+        {
+            "code": 6002,
             "name": "InvalidPDA",
             "msg": "Invalid PDA"
         },
         {
-            "code": 6002,
+            "code": 6003,
             "name": "InvalidReceiver",
             "msg": "Invalid receiver address"
         },
         {
-            "code": 6003,
+            "code": 6004,
             "name": "InsufficientFunds",
             "msg": "Insufficient funds in payment account"
+        },
+        {
+            "code": 6005,
+            "name": "UnauthorizedOwner",
+            "msg": "El firmante no es el propietario de la autoridad"
+        },
+        {
+            "code": 6006,
+            "name": "NoAuthoritySpecified",
+            "msg": "No authority specified to revoke"
+        },
+        {
+            "code": 6007,
+            "name": "UnauthorizedAdmin",
+            "msg": "Unauthorized admin"
         }
     ]
 }
