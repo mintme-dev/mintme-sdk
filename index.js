@@ -1,6 +1,4 @@
 /**
- * Punto de entrada principal para la librería MintMe
- * Exporta las funciones de la librería para uso en CommonJS
+ * Welcome to Mintme.dev Sandbox
+ *
  */
-
-module.exports = require("./lib/mintme");
