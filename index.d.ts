@@ -11,6 +11,86 @@ import type { PublicKey, Connection, Transaction, VersionedTransaction } from "@
 export type LoggerFunction = (message: string) => void
 
 /**
+ * Configuration options for token creation (createToken function)
+ */
+export interface CreateTokenOptions {
+  /**
+   * Solana connection
+   */
+  connection: Connection
+
+  /**
+   * Payer's keypair or compatible wallet
+   */
+  payer: any
+
+  /**
+   * Token name
+   */
+  name: string
+
+  /**
+   * Token symbol
+   */
+  symbol: string
+
+  /**
+   * Unique key for this token creation
+   */
+  uniqueKey: string
+
+  /**
+   * Number of decimal places for the token (default 9)
+   */
+  decimals?: number
+
+  /**
+   * Initial supply of the token (default 1000000000)
+   */
+  initialSupply?: number | string
+
+  /**
+   * URI for the token metadata
+   */
+  uri?: string
+
+  /**
+   * Whether to revoke the mint authority after creation (default false)
+   */
+  revokeMint?: boolean
+
+  /**
+   * Whether to revoke the freeze authority after creation (default false)
+   */
+  revokeFreeze?: boolean
+
+  /**
+   * Partner wallet public key
+   */
+  partnerWallet?: string | PublicKey
+
+  /**
+   * Amount for partner wallet (default 0)
+   */
+  partnerAmount?: number | string
+
+  /**
+   * Program ID (optional)
+   */
+  programId?: string | PublicKey
+
+  /**
+   * Program IDL (URL, object, or path, optional)
+   */
+  idl?: string | object
+
+  /**
+   * Custom logger function (optional)
+   */
+  logger?: LoggerFunction
+}
+
+/**
  * Configuration options for token creation
  */
 export interface TokenCreationConfig {
@@ -147,6 +227,13 @@ export interface TokenCreationResult {
 }
 
 /**
+ * Creates a token on Solana (advanced function)
+ * @param options Configuration options for token creation
+ * @returns A promise that resolves to the result of the token creation
+ */
+export function createToken(options: CreateTokenOptions): Promise<TokenCreationResult>
+
+/**
  * Creates a token on Solana with simplified configuration
  * @param config Configuration options for token creation
  * @returns A promise that resolves to the result of the token creation
@@ -161,6 +248,7 @@ export function setCustomLogger(loggerFunction: LoggerFunction): void
 
 // Export as default and named export for maximum compatibility
 export default {
+  createToken,
   createTokenSimple,
   setCustomLogger,
 }
