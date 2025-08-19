@@ -4,6 +4,14 @@ The MintMe SDK is a JavaScript library designed to simplify token creation on th
 
 ---
 
+## New Feature Available 🌟
+A React widget for creating Solana tokens with a simple, intuitive interface. Built for developers who want to integrate token creation functionality into their applications.
+Link Widget: https://github.com/mintme-dev/mintme-widget
+
+<img width="2026" height="1134" alt="mintme-github-banner-min" src="https://github.com/user-attachments/assets/a4422de6-beff-444e-9abf-437960c197de" />
+
+---
+
 ## Features 🌟
 
 1. **Token Creation Made Easy**: Create SPL tokens with customizable parameters like name, symbol, decimals, and supply.
