@@ -1,254 +1,159 @@
-/**
- * MintMe SDK - TypeScript Definitions
- * A simple library for creating tokens on Solana
- */
+import type { Connection, Keypair, PublicKey, Transaction } from "@solana/web3.js"
 
-import type { PublicKey, Connection, Transaction, VersionedTransaction } from "@solana/web3.js"
+// Types for wallet interfaces
+export interface Web3Wallet {
+  publicKey: PublicKey
+  signTransaction(transaction: Transaction): Promise<Transaction>
+  signAllTransactions?(transactions: Transaction[]): Promise<Transaction[]>
+}
 
-/**
- * Type for logger function
- */
-export type LoggerFunction = (message: string) => void
-
-/**
- * Configuration options for token creation (createToken function)
- */
-export interface CreateTokenOptions {
-  /**
-   * Solana connection
-   */
+// Authority revocation options
+export interface RevokeAuthorityOptions {
   connection: Connection
-
-  /**
-   * Payer's keypair or compatible wallet
-   */
-  payer: any
-
-  /**
-   * Token name
-   */
-  name: string
-
-  /**
-   * Token symbol
-   */
-  symbol: string
-
-  /**
-   * Unique key for this token creation
-   */
-  uniqueKey: string
-
-  /**
-   * Number of decimal places for the token (default 9)
-   */
-  decimals?: number
-
-  /**
-   * Initial supply of the token (default 1000000000)
-   */
-  initialSupply?: number | string
-
-  /**
-   * URI for the token metadata
-   */
-  uri?: string
-
-  /**
-   * Whether to revoke the mint authority after creation (default false)
-   */
+  payer: Keypair | Web3Wallet
+  mint: string | PublicKey
   revokeMint?: boolean
-
-  /**
-   * Whether to revoke the freeze authority after creation (default false)
-   */
   revokeFreeze?: boolean
-
-  /**
-   * Partner wallet public key
-   */
   partnerWallet?: string | PublicKey
-
-  /**
-   * Amount for partner wallet (default 0)
-   */
-  partnerAmount?: number | string
-
-  /**
-   * Program ID (optional)
-   */
+  partnerAmount?: number
   programId?: string | PublicKey
-
-  /**
-   * Program IDL (URL, object, or path, optional)
-   */
   idl?: string | object
-
-  /**
-   * Custom logger function (optional)
-   */
-  logger?: LoggerFunction
+  logger?: (message: string) => void
 }
 
-/**
- * Configuration options for token creation
- */
-export interface TokenCreationConfig {
-  /**
-   * Name of the token
-   */
-  tokenName: string
-
-  /**
-   * Symbol of the token
-   */
-  tokenSymbol: string
-
-  /**
-   * A unique key for this token creation
-   */
-  uniqueKey: string
-
-  /**
-   * Number of decimal places for the token
-   */
-  decimals: number
-
-  /**
-   * Initial supply of the token
-   */
-  initialSupply: number
-
-  /**
-   * URI for the token metadata
-   */
-  uri?: string
-
-  /**
-   * Whether to revoke the mint authority after creation
-   */
+// Simplified revocation config
+export interface RevokeAuthoritySimpleConfig {
+  mint: string
   revokeMint?: boolean
-
-  /**
-   * Whether to revoke the freeze authority after creation
-   */
   revokeFreeze?: boolean
-
-  /**
-   * Solana connection string or Connection object
-   */
-  connection: string | Connection
-
-  /**
-   * Solana cluster to use (e.g., 'devnet', 'mainnet-beta')
-   * Made more flexible to accept any string value for future compatibility
-   */
-  cluster: "devnet" | "testnet" | "mainnet-beta" | string
-
-  /**
-   * Wallet configuration for signing transactions
-   */
-  wallet?:
-    | {
-        /**
-         * Public key of the wallet
-         */
-        publicKey: PublicKey
-
-        /**
-         * Function to sign a transaction
-         * Updated to support both Transaction and VersionedTransaction
-         */
-        signTransaction?: <T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>
-
-        /**
-         * Function to sign multiple transactions
-         * Updated to support both Transaction and VersionedTransaction
-         */
-        signAllTransactions?: <T extends Transaction | VersionedTransaction>(transactions: T[]) => Promise<T[]>
-      }
-    | string // Can also be a path to a wallet file
-
-  /**
-   * Custom logger function to capture log messages
-   */
-  logger?: LoggerFunction
-
-  /**
-   * Path to wallet file (when not using wallet object)
-   */
   walletPath?: string
+  wallet?: Web3Wallet
+  partnerWallet?: string | PublicKey
+  partnerAmount?: number
+  connection?: string | Connection
+  cluster?: string
+  logger?: (message: string) => void
 }
 
-/**
- * Result of a token creation operation
- */
-export interface TokenCreationResult {
-  /**
-   * Whether the operation was successful
-   */
+// Token creation options
+export interface TokenCreationOptions {
+  connection: Connection
+  payer: Keypair | Web3Wallet
+  name: string
+  symbol: string
+  uri: string
+  decimals?: number
+  initialSupply?: number
+  partnerWallet?: string | PublicKey
+  partnerAmount?: number
+  programId?: string | PublicKey
+  idl?: string | object
+  logger?: (message: string) => void
+}
+
+// Simplified token creation config
+export interface TokenCreationSimpleConfig {
+  name: string
+  symbol: string
+  uri: string
+  decimals?: number
+  initialSupply?: number
+  walletPath?: string
+  wallet?: Web3Wallet
+  partnerWallet?: string | PublicKey
+  partnerAmount?: number
+  connection?: string | Connection
+  cluster?: string
+  logger?: (message: string) => void
+}
+
+// Result interfaces
+export interface AuthorityRevocationResult {
   success: boolean
-
-  /**
-   * The address of the created token
-   * @deprecated Use mint instead
-   */
-  tokenAddress?: string
-
-  /**
-   * The address of the created token (mint address)
-   */
   mint?: string
-
-  /**
-   * The transaction signature
-   */
   txSignature?: string
-
-  /**
-   * Error message if the operation failed
-   */
+  revokedAuthorities?: {
+    mint: boolean
+    freeze: boolean
+  }
   error?: string
-
-  /**
-   * Additional error details if available
-   */
   details?: any
-
-  /**
-   * Whether the freeze authority was revoked (if revokeFreeze was true)
-   */
-  freezeRevoked?: boolean
-
-  /**
-   * Transaction signature for the freeze authority revocation
-   */
-  freezeRevokeTx?: string
 }
 
-/**
- * Creates a token on Solana (advanced function)
- * @param options Configuration options for token creation
- * @returns A promise that resolves to the result of the token creation
- */
-export function createToken(options: CreateTokenOptions): Promise<TokenCreationResult>
-
-/**
- * Creates a token on Solana with simplified configuration
- * @param config Configuration options for token creation
- * @returns A promise that resolves to the result of the token creation
- */
-export function createTokenSimple(config: TokenCreationConfig): Promise<TokenCreationResult>
-
-/**
- * Sets a custom logger function to capture log messages
- * @param loggerFunction Function that will receive log messages
- */
-export function setCustomLogger(loggerFunction: LoggerFunction): void
-
-// Export as default and named export for maximum compatibility
-export default {
-  createToken,
-  createTokenSimple,
-  setCustomLogger,
+export interface TokenCreationResult {
+  success: boolean
+  mint?: string
+  txSignature?: string
+  error?: string
+  details?: any
 }
+
+// Main function exports
+export declare function createToken(options: TokenCreationOptions): Promise<TokenCreationResult>
+export declare function createTokenSimple(config: TokenCreationSimpleConfig): Promise<TokenCreationResult>
+
+// Authority management functions
+export declare function revokeAuthority(options: RevokeAuthorityOptions): Promise<AuthorityRevocationResult>
+export declare function revokeAuthoritySimple(config: RevokeAuthoritySimpleConfig): Promise<AuthorityRevocationResult>
+export declare function revokeFreezeAuthoritySimple(
+  config: RevokeAuthoritySimpleConfig,
+): Promise<AuthorityRevocationResult>
+export declare function simpleRevokeMintAuthority(
+  config: RevokeAuthoritySimpleConfig,
+): Promise<AuthorityRevocationResult>
+export declare function setCustomLogger(loggerFunction: (message: string) => void): void
+
+// PDA utilities
+export declare function derivePaymentPDA(programId: PublicKey): Promise<[PublicKey, number]>
+export declare function deriveMintPDA(programId: PublicKey): Promise<[PublicKey, number]>
+export declare function deriveTokenAccount(mint: PublicKey, owner: PublicKey): Promise<PublicKey>
+export declare function deriveMetadataAccount(mint: PublicKey): Promise<PublicKey>
+
+// Wallet utilities
+export declare function verifyWalletFile(filePath: string): boolean
+export declare function loadWalletFromFile(filePath: string): Keypair | null
+
+// Conversion utilities
+export declare const LAMPORTS_PER_SOL: number
+export declare function solToLamports(sol: number): number
+export declare function lamportsToSol(lamports: number): number
+export declare function formatSolAmount(lamports: number, decimals?: number): string
+
+// Validation utilities
+export declare function validateTokenName(name: string): boolean
+export declare function validateTokenSymbol(symbol: string): boolean
+export declare function validateDecimals(decimals: number): boolean
+export declare function validateInitialSupply(supply: number): boolean
+export declare function validateUri(uri: string): boolean
+export declare function validatePublicKey(key: string): boolean
+export declare function validateTokenCreationParams(params: any): boolean
+
+// Default export (for compatibility)
+declare const mintme: {
+  createToken: typeof createToken
+  createTokenSimple: typeof createTokenSimple
+  revokeAuthority: typeof revokeAuthority
+  revokeAuthoritySimple: typeof revokeAuthoritySimple
+  revokeFreezeAuthoritySimple: typeof revokeFreezeAuthoritySimple
+  simpleRevokeMintAuthority: typeof simpleRevokeMintAuthority
+  setCustomLogger: typeof setCustomLogger
+  derivePaymentPDA: typeof derivePaymentPDA
+  deriveMintPDA: typeof deriveMintPDA
+  deriveTokenAccount: typeof deriveTokenAccount
+  deriveMetadataAccount: typeof deriveMetadataAccount
+  verifyWalletFile: typeof verifyWalletFile
+  loadWalletFromFile: typeof loadWalletFromFile
+  LAMPORTS_PER_SOL: typeof LAMPORTS_PER_SOL
+  solToLamports: typeof solToLamports
+  lamportsToSol: typeof lamportsToSol
+  formatSolAmount: typeof formatSolAmount
+  validateTokenName: typeof validateTokenName
+  validateTokenSymbol: typeof validateTokenSymbol
+  validateDecimals: typeof validateDecimals
+  validateInitialSupply: typeof validateInitialSupply
+  validateUri: typeof validateUri
+  validatePublicKey: typeof validatePublicKey
+  validateTokenCreationParams: typeof validateTokenCreationParams
+}
+
+export default mintme
